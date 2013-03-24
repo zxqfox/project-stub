@@ -33,9 +33,18 @@ MAKE.decl('BundleNode', {
             'ie7.css',
             'ie8.css',
             'ie9.css',
-            'html'
+            'php'
         ];
 
+    },
+
+    'create-php-node': function(tech, bundleNode, magicNode) {
+
+        return this.setBemCreateNode(
+            tech,
+            this.level.resolveTech(tech),
+            bundleNode,
+            magicNode);
     }
 
 });
