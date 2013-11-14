@@ -1,0 +1,20 @@
+block carousel {
+    tag: 'ul'
+
+    elem item {
+        tag: 'li'
+
+        content: {
+            elem: 'img'
+        }
+
+    }
+
+    elem img {
+        tag: 'img'
+        attrs: {
+            src: '//i/' + this.ctx.id + '.png',
+            alt: this.ctx.title
+        }
+    }
+}

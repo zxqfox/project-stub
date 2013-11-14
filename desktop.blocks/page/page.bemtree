@@ -1,0 +1,25 @@
+// матчимся по пустой моде (она выполняется самой первой)
+// проверяем, что еще не пробросили данные
+this._mode === '' && !this.data: {
+    // пробрасываем их в this, чтобы иметь возможность обращаться
+    // к ним из вложенных шаблонов
+    return apply('', this.data = this.ctx.data);
+}
+
+// проверяем, что даныне уже есть
+this.data, default: {
+    return applyCtx({
+        block: 'page',
+        title: this.data.page.title,
+        favicon: '//favicon.ico',
+        head: [
+            {
+                elem: 'meta',
+                attrs: { name: 'description', content: this.data.page.description }
+            }
+        ],
+        content: {
+            block: 'carousel'
+        }
+    })
+}

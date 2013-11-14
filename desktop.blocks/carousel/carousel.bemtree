@@ -1,0 +1,9 @@
+block carousel, content, this.data.gallery: {
+    return this.data.gallery.map(function(item) {
+        return {
+            elem: 'item',
+            id: item.id,
+            title: item.title
+        };
+    });
+}
