@@ -1,5 +1,4 @@
-var UTIL = require('util'),
-    FS = require('fs'),
+var FS = require('fs'),
     Vow = require('vow'),
     VM = require('vm'),
     DB = {
@@ -27,8 +26,6 @@ var data = DB.getData();
 var bemtreeTemplate = FS.readFileSync('./desktop.bundles/index/index.bemtree.js', 'utf-8'),
     BEMHTML = require('./desktop.bundles/index/_index.bemhtml.js').BEMHTML;
 
-//console.log('bemtreeTemplate', bemtreeTemplate);
-
 // пробрасываем vow в контекст BEMTREE
 var context = VM.createContext({
     Vow: Vow
@@ -36,16 +33,7 @@ var context = VM.createContext({
 
 VM.runInContext(bemtreeTemplate, context);
 BEMTREE = context.BEMTREE;
-//UTIL.inspect(context).BEMTREE;
-// BEMTREE = require('./desktop.bundles/index/index.bemtree.js').BEMTREE;
-
-// console.log('BEMTREE', UTIL.inspect(context).BEMTREE);
 
 BEMTREE.apply({ data: data }).then(function(bemjson) {
     console.log(BEMHTML.apply(bemjson));
 });
-
-// BEMTREE.apply(data)
-//     .then(function(bemjson) {
-//         var html = BEMHTML.apply(bemjson);
-//     });
