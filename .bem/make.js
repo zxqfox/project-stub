@@ -1,6 +1,7 @@
 /* global MAKE:false */
 
 // process.env.YENV = 'production';
+process.env.BEM_I18N_LANGS = 'en ru uk';
 
 var PATH = require('path');
 
@@ -23,10 +24,12 @@ MAKE.decl('BundleNode', {
             'bemdecl.js',
             'deps.js',
             'bemhtml',
-            'browser.js+bemhtml',
+            'i18n',
+            'i18n.browser.js+bemhtml',
+            'i18n.node.js',
             'roole',
             'css',
-            'html'
+            'i18n.html'
         ];
 
     },
@@ -58,6 +61,18 @@ MAKE.decl('BundleNode', {
         return levels
             .map(function(path) { return resolve(path); })
             .concat(resolve(PATH.dirname(this.getNodePrefix()), 'blocks'));
+    },
+
+    // 'create-i18n.browser.js-optimizer-node': function(tech, sourceNode, bundleNode) {
+    //     return this['create-js-optimizer-node'].apply(this, arguments);
+    // },
+
+    'create-i18n.browser.js+bemhtml-optimizer-node': function(tech, sourceNode, bundleNode) {
+        return this['create-js-optimizer-node'].apply(this, arguments);
+    },
+
+    'create-i18n.html-node': function(tech, bundleNode, magicNode) {
+        return this['create-html-node'].apply(this, arguments);
     },
 
     'create-css-node' : function(tech, bundleNode, magicNode) {
