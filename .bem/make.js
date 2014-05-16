@@ -24,7 +24,7 @@ MAKE.decl('BundleNode', {
             'deps.js',
             'bemhtml',
             'browser.js+bemhtml',
-            'roole',
+            'sass',
             'css',
             'html'
         ];
@@ -32,7 +32,7 @@ MAKE.decl('BundleNode', {
     },
 
     getForkedTechs : function() {
-        return this.__base().concat(['browser.js+bemhtml', 'roole']);
+        return this.__base().concat(['browser.js+bemhtml', 'sass']);
     },
 
     getLevelsMap : function() {
@@ -61,7 +61,7 @@ MAKE.decl('BundleNode', {
     },
 
     'create-css-node' : function(tech, bundleNode, magicNode) {
-        var source = this.getBundlePath('roole');
+        var source = this.getBundlePath('sass');
         if(this.ctx.arch.hasNode(source)) {
             return this.createAutoprefixerNode(tech, this.ctx.arch.getNode(source), bundleNode, magicNode);
         }
