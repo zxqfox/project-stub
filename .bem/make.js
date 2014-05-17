@@ -9,10 +9,11 @@ require('bem-tools-autoprefixer').extendMake(MAKE);
 MAKE.decl('Arch', {
 
     blocksLevelsRegexp : /^.+?\.blocks/,
-    bundlesLevelsRegexp : /^.+?\.bundles$/
+    getBundlesLevels : function() {
+        return require('glob').sync('{*.bundles,./app/*/views}');
+    }
 
 });
-
 
 MAKE.decl('BundleNode', {
 
@@ -35,29 +36,18 @@ MAKE.decl('BundleNode', {
         return this.__base().concat(['browser.js+bemhtml', 'roole']);
     },
 
-    getLevelsMap : function() {
-        return {
-            desktop : [
-                'libs/bem-core/common.blocks',
-                'libs/bem-core/desktop.blocks',
-                'libs/bem-components/common.blocks',
-                'libs/bem-components/desktop.blocks',
-                'libs/bem-components/design/common.blocks',
-                'libs/bem-components/design/desktop.blocks',
-                'common.blocks',
-                'desktop.blocks'
-            ]
-        };
-    },
-
-     getLevels : function() {
-        var resolve = PATH.resolve.bind(PATH, this.root),
-            buildLevel = this.getLevelPath().split('.')[0],
-            levels = this.getLevelsMap()[buildLevel] || [];
-
-        return levels
-            .map(function(path) { return resolve(path); })
-            .concat(resolve(PATH.dirname(this.getNodePrefix()), 'blocks'));
+    getLevels : function() {
+        return [
+            'libs/bem-core/common.blocks',
+            'libs/bem-core/desktop.blocks',
+            'libs/bem-components/common.blocks',
+            'libs/bem-components/desktop.blocks',
+            'libs/bem-components/mobile.blocks',
+            'libs/bem-components/design/common.blocks',
+            'libs/bem-components/design/desktop.blocks',
+            'common.blocks',
+            'desktop.blocks'
+        ];
     },
 
     'create-css-node' : function(tech, bundleNode, magicNode) {
@@ -81,3 +71,9 @@ MAKE.decl('AutoprefixerNode', {
     }
 
 });
+
+// MAKE.decl('BundlesLevelNode', {
+//     buildMergedBundle: function() {
+//         return true;
+//     }
+// });
