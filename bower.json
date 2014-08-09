@@ -9,6 +9,6 @@
     "libs"
   ],
   "dependencies": {
-    "bem-core": "2.4.0"
+    "bem-core": "7d2156f074698714a99d38067d7b762012f14faa"
   }
 }
