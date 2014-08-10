@@ -1,6 +1,7 @@
 /* global MAKE:false */
 
 //process.env.YENV = 'production';
+process.env.BEM_I18N_LANGS = 'en ru';
 
 var PATH = require('path');
 
@@ -16,11 +17,12 @@ MAKE.decl('BundleNode', {
             'bemjson.js',
             'bemdecl.js',
             'deps.js',
+            'i18n',
             'bemhtml',
-            'js+bemhtml',
+            'i18n.js+bemhtml',
             'css',
             'ie.css',
-            'html'
+            'i18n.html'
         ];
     },
 
@@ -28,8 +30,12 @@ MAKE.decl('BundleNode', {
         return this.__base().concat(['js+bemhtml']);
     },
 
-    'create-js+bemhtml-optimizer-node': function(tech, sourceNode, bundleNode) {
+    'create-i18n.js+bemhtml-optimizer-node': function(tech, sourceNode, bundleNode) {
         return this['create-js-optimizer-node'].apply(this, arguments);
+    },
+
+    'create-i18n.html-node': function(tech, bundleNode, magicNode) {
+        return this['create-html-node'].apply(this, arguments);
     },
 
     getLevelsMap : function() {
